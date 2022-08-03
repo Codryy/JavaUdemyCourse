@@ -6,3 +6,11 @@ public class Main {
         System.out.println(DecimalComparator.areEqualByThreeDecimalPlaces(-3.123, 3.132));
     }
 }
+
+public class DecimalComparator {
+    public static boolean areEqualByThreeDecimalPlaces(double num1, double num2){
+        if( ( (int) ( num1 * 1000) == (int) ( num2 * 1000 ) ) ) {
+            return true;
+        }else return false;
+    }
+}
