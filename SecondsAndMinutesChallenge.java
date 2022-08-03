@@ -14,7 +14,7 @@ public class Main {
 
     public static void getDurationString(int minutes, int seconds){
         if(minutes<0 || seconds <0 || seconds > 59){
-            System.out.println("Invalid value");;
+            System.out.println(INVALID_VALUE_MESSAGE);;
         } else {
             int hours = minutes/60;
             int remainderMinutes = minutes % 60;
