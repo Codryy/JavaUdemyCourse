@@ -1,80 +1,89 @@
+package academy.learnprogramming;
+
 public class Main {
 
+    private static final String INVALID_VALUE_MESSAGE = "Invalid Value";
+
     public static void main(String[] args) {
-        printDayOfTheWeek(-1);
-        printDayOfTheWeek(0);
-        printDayOfTheWeek(1);
-        printDayOfTheWeek(2);
-        printDayOfTheWeek(3);
-        printDayOfTheWeek(4);
-        printDayOfTheWeek(5);
-        printDayOfTheWeek(6);
-        printDayOfTheWeek(7);
-        
-        printDayOfTheWeek2(-1);
-        printDayOfTheWeek2(0);
-        printDayOfTheWeek2(1);
-        printDayOfTheWeek2(2);
-        printDayOfTheWeek2(3);
-        printDayOfTheWeek2(4);
-        printDayOfTheWeek2(5);
-        printDayOfTheWeek2(6);
-        printDayOfTheWeek2(7);
+        System.out.println(getDurationString(125,40));
+        System.out.println(getDurationString(7540));
+        System.out.println(getDurationString(125, 5));
+        System.out.println(getDurationString(7505));
+        System.out.println(getDurationString(-41));
     }
 
-    private static void printDayOfTheWeek(int day){
-        switch (day){
-            case 0:
-                System.out.println("Sunday");
-                break;
+    // My solution
+    /*public static void getDurationString(int minutes, int seconds){
+        if(minutes<0 || seconds <0 || seconds > 59){
+            System.out.println("Invalid value");;
+        } else {
+            int hours = minutes/60;
+            int remainderMinutes = minutes % 60;
+            if(hours<10 && remainderMinutes < 10 && seconds < 10){
+                System.out.println("0" + hours + "h " + "0" + remainderMinutes + "m " + "0" + seconds + "s ");
+            } else if (hours<10 && remainderMinutes < 10){
+                System.out.println("0" + hours + "h " + "0" + remainderMinutes + "m " + seconds + "s ");
+            } else if (hours<10 && seconds < 10) {
+                System.out.println("0" + hours + "h " + remainderMinutes + "m " + "0" + seconds + "s ");
+            } else if (minutes<10 && seconds < 10) {
+                System.out.println(hours + "h " + "0" + remainderMinutes + "m " + "0" + seconds + "s ");
+            } else if (hours < 10) {
+                System.out.println("0" + hours + "h " + remainderMinutes + "m " + seconds + "s ");
+            } else if (minutes < 10) {
+                System.out.println(hours + "h " + "0" + remainderMinutes + "m " + seconds + "s ");
+            } else if (seconds < 10) {
+                System.out.println(hours + "h " + remainderMinutes + "m " + "0" + seconds + "s ");
+            }
 
-            case 1:
-                System.out.println("Monday");
-                break;
-
-            case 2:
-                System.out.println("Tuesday");
-                break;
-
-            case 3:
-                System.out.println("Wednesday");
-                break;
-
-            case 4:
-                System.out.println("Thursday");
-                break;
-
-            case 5:
-                System.out.println("Friday");
-                break;
-
-            case 6:
-                System.out.println("Saturday");
-                break;
-
-            default:
-                System.out.println("Invalid Day");
-                break;
         }
     }
 
-    private static void printDayOfTheWeek2(int day){
-        if(day == 0){
-            System.out.println("Sunday");
-        } else if ( day == 1) {
-            System.out.println("Monday");
-        } else if ( day == 2) {
-            System.out.println("Tuesday");
-        } else if ( day == 3) {
-            System.out.println("Wednesday");
-        } else if ( day == 4) {
-            System.out.println("Thursday");
-        } else if ( day == 5) {
-            System.out.println("Friday");
-        } else if ( day == 6) {
-            System.out.println("Saturday");
+    public static void getDurationString(int seconds){
+        if(seconds < 0) {
+            System.out.println("Invalid value");
         } else {
-            System.out.println("Invalid Day");
+            int minutes = seconds / 60;
+            int remainderSeconds = seconds % 60;
+            getDurationString(minutes, remainderSeconds);
+        }
+    }*/
+
+    //Tim's solution
+    private static String getDurationString(long minutes, long seconds){
+        if( (minutes < 0) || (seconds < 0) || (seconds > 59) ) {
+            return INVALID_VALUE_MESSAGE;
+        } else {
+
+            long hours = minutes / 60;
+            long remainingMinutes = minutes % 60;
+
+            String hoursString = hours + "h ";
+            if ( hours < 10 ) {
+                hoursString = "0" + hoursString;
+            }
+
+            String minutesString = remainingMinutes + "m ";
+            if ( remainingMinutes < 10) {
+                minutesString = "0" + minutesString;
+            }
+
+            String secondsString = seconds + "s ";
+            if ( seconds < 10 ) {
+                secondsString = "0" + secondsString;
+            }
+
+            return hoursString + minutesString + secondsString;
+        }
+    }
+
+    private static String getDurationString(long seconds){
+        if ( seconds < 0 ) {
+            return INVALID_VALUE_MESSAGE;
+        } else {
+            long minutes = seconds / 60;
+            long remainingSeconds = seconds % 60;
+            return getDurationString(minutes, remainingSeconds);
         }
     }
 }
+
