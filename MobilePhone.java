@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
 
 public class Main {
 
@@ -121,5 +123,96 @@ public class Main {
                 "5 - query if an existing contact exists\n" +
                 "6 - to print a list of available actions.");
         System.out.println("Choose your action: ");
+    }
+}
+
+public class MobilePhone {
+
+    private String myNumber;
+    private ArrayList<Contact> myContacts;
+
+    public MobilePhone(String myNumber) {
+        this.myNumber = myNumber;
+        this.myContacts = new ArrayList<Contact>();
+    }
+
+    public boolean addNewContact(Contact contact) {
+        if ( findContact(contact.getName()) >= 0 ) {
+            return false;
+        } else {
+            this.myContacts.add(contact);
+            return true;
+        }
+    }
+
+    public boolean updateContact(Contact oldContact, Contact newContact) {
+        if ( findContact(oldContact) < 0 ) {
+            return false;
+        } else {
+            this.myContacts.set(findContact(oldContact), newContact);
+            return true;
+        }
+    }
+
+    public boolean removeContact(Contact contact) {
+        if ( findContact(contact) < 0 ) {
+            return false;
+        } else {
+            this.myContacts.remove(contact);
+            return true;
+        }
+    }
+
+    public Contact queryContact(String name) {
+        if ( findContact(name) < 0 ) {
+            return null;
+        } else {
+            return this.myContacts.get(findContact(name));
+        }
+    }
+
+    public void printContacts() {
+        System.out.println("Contact List:");
+        for ( int i = 0; i < this.myContacts.size(); i++ ) {
+            System.out.println((i+1) + ". " + this.myContacts.get(i).getName() +" -> " + this.myContacts.get(i).getPhoneNumber());
+        }
+    }
+
+    private int findContact(Contact contact) {
+        return this.myContacts.indexOf(contact);
+    }
+
+    private int findContact(String name) {
+        for ( int i = 0; i < this.myContacts.size(); i++ ) {
+            Contact contact = this.myContacts.get(i);
+            if ( contact.getName().equals(name) ) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+}
+
+public class Contact {
+
+    private String name;
+    private String phoneNumber;
+
+    public Contact(String name, String phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public static Contact createContact(String name, String phoneNumber) {
+        return new Contact(name, phoneNumber);
     }
 }
