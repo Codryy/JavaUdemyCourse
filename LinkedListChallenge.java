@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Main {
 
@@ -151,4 +153,73 @@ public class Main {
     }
 }
 
+public class Album {
 
+    private String name;
+    private String artist;
+    private ArrayList<Song> songs;
+
+    public Album(String name, String artist) {
+        this.name = name;
+        this.artist = artist;
+        this.songs = new ArrayList<Song>();
+    }
+
+    public boolean addSongToAlbum(String nameOfSong, double durationOfSong) {
+        if( findSong(nameOfSong) == null ) {
+            this.songs.add(new Song(nameOfSong, durationOfSong));
+            return true;
+        }
+        return false;
+    }
+
+    private Song findSong(String nameOfSong) {
+        for(Song checkedSong: this.songs) {
+            if ( checkedSong.getTitle().equals(nameOfSong) ) {
+                return checkedSong;
+            }
+        }
+        return null;
+    }
+
+    public boolean addToPlaylist(int trackNumber, LinkedList<Song> playList) {
+        int index = trackNumber - 1;
+        if ( (index >= 0) && ( index <= this.songs.size()) ) {
+            playList.add(this.songs.get(index));
+            return true;
+        }
+        System.out.println("This album does not have a track " + trackNumber);
+        return false;
+    }
+
+    public boolean addToPlaylist(String nameOfSong, LinkedList<Song> playList) {
+        Song checkedSong = findSong(nameOfSong);
+        if ( checkedSong != null ) {
+            playList.add(checkedSong);
+            return true;
+        }
+        System.out.println("The song " + nameOfSong + " is not in this album");
+        return false;
+    }
+
+}
+
+public class Song {
+
+    private String title;
+    private double duration;
+
+    public Song(String title, double duration) {
+        this.title = title;
+        this.duration = duration;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String toString() {
+        return this.title + ": " + this.duration;
+    }
+}
